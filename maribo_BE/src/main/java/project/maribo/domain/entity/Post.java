@@ -1,6 +1,7 @@
 package project.maribo.domain.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import project.maribo.domain.entity.type.Category;
@@ -18,9 +19,11 @@ public class Post {
     @Column(name = "post_id")
     private Long postId;
 
+    @NotBlank
     @Column(name = "title")
     private String title;
 
+    @NotBlank
     @Column(name = "content")
     private String content;
 
@@ -38,7 +41,7 @@ public class Post {
     @Column(name = "created_date")
     private LocalDate createdDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
 

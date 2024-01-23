@@ -1,6 +1,7 @@
 package project.maribo.domain.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,6 +18,7 @@ public class User {
     @Column(name = "user_id")
     private Long userId;
 
+    @Email
     @Column(name = "email")
     private String email;
 
