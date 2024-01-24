@@ -8,7 +8,6 @@ import project.maribo.domain.entity.type.Category;
 @Data
 public class PostCreateRequest{
     Long userId;
-    Long likeNum;
     String title;
     String content;
     String photoUrl;

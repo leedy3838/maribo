@@ -11,6 +11,8 @@ import project.maribo.domain.entity.type.Category;
 import project.maribo.repository.PostRepository;
 import project.maribo.repository.UserRepository;
 
+import java.util.List;
+
 @Slf4j
 @Service
 @Transactional(readOnly = true)
@@ -26,8 +28,7 @@ public class PostService {
         User user = userRepository.findById(postCreateRequest.getUserId())
                 .orElseThrow(RuntimeException::new);
 
-        Category category = Category.of(postCreateRequest.getCategory());
-        Post post = Post.createPost(postCreateRequest, category, user);
+        Post post = Post.createPost(postCreateRequest, user);
         postRepository.save(post);
     }
 }

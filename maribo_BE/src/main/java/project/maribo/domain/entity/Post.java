@@ -50,19 +50,19 @@ public class Post {
     public Post(String title, String content, Long likeNum, String photoUrl, Category category, User user) {
         this.title = title;
         this.content = content;
-        this.likeNum = likeNum;
         this.photoUrl = photoUrl;
         this.category = category;
+        this.likeNum = likeNum;
         this.user = user;
     }
 
-    public static Post createPost(PostCreateRequest postCreateRequest, Category category, User user) {
+    public static Post createPost(PostCreateRequest postCreateRequest, User user) {
         return Post.builder()
                 .user(user)
-                .category(category)
+                .category(Category.of(postCreateRequest.getCategory()))
                 .title(postCreateRequest.getTitle())
                 .content(postCreateRequest.getContent())
-                .likeNum(postCreateRequest.getLikeNum())
+                .likeNum(0L)
                 .photoUrl(postCreateRequest.getPhotoUrl())
                 .build();
     }
