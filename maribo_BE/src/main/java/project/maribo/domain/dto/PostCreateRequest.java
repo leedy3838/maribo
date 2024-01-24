@@ -1,14 +1,16 @@
 package project.maribo.domain.dto;
 
+import lombok.Data;
+import project.maribo.domain.entity.Post;
 import project.maribo.domain.entity.User;
 import project.maribo.domain.entity.type.Category;
 
-public record PostCreateRequest(
-        String title,
-        String content,
-        Long likeNum,
-        String photoUrl,
-        String category,
-        Long userId
-) {
+@Data
+public class PostCreateRequest{
+    Long userId;
+    Long likeNum;
+    String title;
+    String content;
+    String photoUrl;
+    String category;
 }

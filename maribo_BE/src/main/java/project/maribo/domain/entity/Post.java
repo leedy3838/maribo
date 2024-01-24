@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
+import project.maribo.domain.dto.PostCreateRequest;
 import project.maribo.domain.entity.type.Category;
 
 import java.time.LocalDate;
@@ -53,5 +54,16 @@ public class Post {
         this.photoUrl = photoUrl;
         this.category = category;
         this.user = user;
+    }
+
+    public static Post createPost(PostCreateRequest postCreateRequest, Category category, User user) {
+        return Post.builder()
+                .user(user)
+                .category(category)
+                .title(postCreateRequest.getTitle())
+                .content(postCreateRequest.getContent())
+                .likeNum(postCreateRequest.getLikeNum())
+                .photoUrl(postCreateRequest.getPhotoUrl())
+                .build();
     }
 }

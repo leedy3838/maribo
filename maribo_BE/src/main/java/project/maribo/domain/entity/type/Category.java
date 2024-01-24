@@ -1,7 +1,7 @@
 package project.maribo.domain.entity.type;
 
 public enum Category {
-    INFORMATION, QUESTION, ADVERTISE, NORMAL
+    INFORMATION, QUESTION, ADVERTISE, NORMAL;
 
     public static Category of (String category) {
         if (category.equalsIgnoreCase("information")) return Category.INFORMATION;
