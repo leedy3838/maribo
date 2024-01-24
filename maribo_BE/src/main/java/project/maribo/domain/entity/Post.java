@@ -15,6 +15,7 @@ import java.time.LocalDate;
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "posts")
 @Getter
+@ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Post {
 

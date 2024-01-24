@@ -33,14 +33,16 @@ public class PostService {
         postRepository.save(post);
     }
 
+    @Transactional
     public void updatePost(PostUpdateRequest postUpdateRequest) {
 
         Post post = postRepository.findById(postUpdateRequest.getPostId())
                 .orElseThrow(RuntimeException::new);
 
         validateUser(postUpdateRequest, post);
-
+        log.info("post update 전 : {}", post);
         post.update(postUpdateRequest);
+        log.info("post update 후 : {}", post);
     }
 
     private static void validateUser(PostUpdateRequest postUpdateRequest, Post post) {
