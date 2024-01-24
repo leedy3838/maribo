@@ -7,9 +7,9 @@ import project.maribo.domain.entity.type.Category;
 
 @Data
 public class PostCreateRequest{
-    Long userId;
-    String title;
-    String content;
-    String photoUrl;
-    String category;
+    private Long userId;
+    private String title;
+    private String content;
+    private String photoUrl;
+    private String category;
 }
