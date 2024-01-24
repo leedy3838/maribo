@@ -6,6 +6,7 @@ import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import project.maribo.domain.dto.PostCreateRequest;
+import project.maribo.domain.dto.PostUpdateRequest;
 import project.maribo.domain.entity.type.Category;
 
 import java.time.LocalDate;
@@ -67,5 +68,12 @@ public class Post {
                 .likeNum(0L)
                 .photoUrl(postCreateRequest.getPhotoUrl())
                 .build();
+    }
+
+    public void update(PostUpdateRequest postUpdateRequest) {
+        this.title = postUpdateRequest.getTitle();
+        this.content = postUpdateRequest.getContent();
+        this.photoUrl = postUpdateRequest.getPhotoUrl();
+        this.category = Category.of(postUpdateRequest.getCategory());
     }
 }

@@ -6,4 +6,6 @@ import project.maribo.domain.entity.Post;
 
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long> {
+
+
 }
