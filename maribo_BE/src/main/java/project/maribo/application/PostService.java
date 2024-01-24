@@ -21,10 +21,12 @@ public class PostService {
     private final UserRepository userRepository;
 
     @Transactional
-    public void createPost(PostCreateRequest postCreateRequest, Category category) {
+    public void createPost(PostCreateRequest postCreateRequest) {
 
-        User user = userRepository.findById(postCreateRequest.getUserId()).get();
+        User user = userRepository.findById(postCreateRequest.getUserId())
+                .orElseThrow(RuntimeException::new);
 
+        Category category = Category.of(postCreateRequest.getCategory());
         Post post = Post.createPost(postCreateRequest, category, user);
         postRepository.save(post);
     }
