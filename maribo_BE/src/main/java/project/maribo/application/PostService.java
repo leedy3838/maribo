@@ -45,6 +45,12 @@ public class PostService {
         log.info("post update 후 : {}", post);
     }
 
+    @Transactional
+    public void deletePost(Long postId) {
+
+        postRepository.deleteById(postId);
+    }
+
     private static void validateUser(PostUpdateRequest postUpdateRequest, Post post) {
         if (!postUpdateRequest.getUserId().equals(post.getUser().getUserId())) {
             throw new RuntimeException();
