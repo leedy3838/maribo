@@ -63,7 +63,7 @@ public class Post {
         this.user = user;
     }
 
-    public static Post createPost(PostCreateRequest postCreateRequest, User user) {
+    public static Post of(PostCreateRequest postCreateRequest, User user) {
         return Post.builder()
                 .user(user)
                 .category(Category.of(postCreateRequest.getCategory()))
