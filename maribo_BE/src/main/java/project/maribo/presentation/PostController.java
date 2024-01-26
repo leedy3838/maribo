@@ -8,9 +8,12 @@ import org.springframework.web.bind.annotation.*;
 import project.maribo.application.PostService;
 import project.maribo.domain.dto.PostCreateRequest;
 import project.maribo.domain.dto.PostGetResponse;
+import project.maribo.domain.dto.PostResponse;
 import project.maribo.domain.dto.PostUpdateRequest;
 import project.maribo.domain.entity.Post;
 import project.maribo.repository.PostRepository;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -39,5 +42,12 @@ public class PostController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(postService.getPostById(postId));
+    }
+
+    @GetMapping("/posts")
+    public ResponseEntity<List<PostResponse>> getPosts() {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(postService.getAllPosts());
     }
 }

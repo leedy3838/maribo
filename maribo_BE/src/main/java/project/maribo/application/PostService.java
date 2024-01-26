@@ -6,12 +6,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project.maribo.domain.dto.PostCreateRequest;
 import project.maribo.domain.dto.PostGetResponse;
+import project.maribo.domain.dto.PostResponse;
 import project.maribo.domain.dto.PostUpdateRequest;
 import project.maribo.domain.entity.Post;
 import project.maribo.domain.entity.User;
 import project.maribo.domain.entity.type.Category;
 import project.maribo.repository.PostRepository;
 import project.maribo.repository.UserRepository;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -66,7 +70,24 @@ public class PostService {
                 .build();
     }
 
-    private static void validateUser(PostUpdateRequest postUpdateRequest, Post post) {
+    public List<PostResponse> getAllPosts() {
+        return postRepository.findAll()
+                .stream()
+                .map(PostService::postToResponse)
+                .collect(Collectors.toList());
+    }
+
+    private static PostResponse postToResponse(Post post) {
+        return PostResponse
+                .builder()
+                .postId(post.getPostId())
+                .userId(post.getUser().getUserId())
+                .title(post.getTitle())
+                .createdDate(post.getCreatedDate())
+                .build();
+    }
+
+    private void validateUser(PostUpdateRequest postUpdateRequest, Post post) {
         if (!postUpdateRequest.getUserId().equals(post.getUser().getUserId())) {
             throw new RuntimeException();
         }
