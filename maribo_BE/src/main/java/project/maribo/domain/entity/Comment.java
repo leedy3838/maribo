@@ -9,6 +9,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import project.maribo.domain.dto.CommentCreateRequest;
+import project.maribo.domain.dto.PostCreateRequest;
+import project.maribo.domain.entity.type.Category;
 
 @Entity
 @Table(name = "comments")
@@ -40,5 +43,13 @@ public class Comment {
         this.content = content;
         this.post = post;
         this.user = user;
+    }
+
+    public static Comment of(CommentCreateRequest commentCreateRequest, User user, Post post) {
+        return Comment.builder()
+                .user(user)
+                .post(post)
+                .content(commentCreateRequest.getContent())
+                .build();
     }
 }
