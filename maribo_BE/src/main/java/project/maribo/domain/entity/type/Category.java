@@ -3,7 +3,7 @@ package project.maribo.domain.entity.type;
 public enum Category {
     INFORMATION, QUESTION, ADVERTISE, NORMAL;
 
-    public static Category of (String category) {
+    public static Category of(String category) {
         if (category == null) {
             return Category.NORMAL; // 입력값이 null일 경우 기본값으로 NORMAL을 반환
         }
