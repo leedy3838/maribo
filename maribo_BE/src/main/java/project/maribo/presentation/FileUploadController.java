@@ -1,44 +1,24 @@
 package project.maribo.presentation;
 
-import com.amazonaws.services.s3.AmazonS3Client;
-import com.amazonaws.services.s3.model.ObjectMetadata;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
+import project.maribo.application.PostService;
+import project.maribo.domain.entity.Post;
 
 @Slf4j
 @RestController
-@RequestMapping("/upload")
+@RequestMapping(value = "/v1/maribo")
 @RequiredArgsConstructor
 public class FileUploadController {
 
-    private final AmazonS3Client amazonS3Client;
+    private final PostService postService;
 
-    @Value("${cloud.aws.s3.bucket}")
-    private String bucket;
-
-    @PostMapping
-    public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) {
-        try {
-            String fileName = file.getOriginalFilename();
-            String fileUrl = "https://" + bucket + "/test" + fileName;
-            ObjectMetadata metadata= new ObjectMetadata();
-            metadata.setContentType(file.getContentType());
-            metadata.setContentLength(file.getSize());
-            amazonS3Client.putObject(bucket,fileName,file.getInputStream(),metadata);
-            return ResponseEntity.ok(fileUrl);
-        } catch (IOException e) {
-            log.info("uploadFile error", e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+    @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public String savePost(@RequestParam("image") MultipartFile image, Post post) {
+        return postService.savePost(image, post);
     }
 }

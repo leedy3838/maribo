@@ -51,4 +51,8 @@ public class Post {
         this.category = category;
         this.user = user;
     }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
+    }
 }
