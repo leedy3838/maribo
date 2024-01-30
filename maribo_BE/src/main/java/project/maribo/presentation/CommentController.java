@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import project.maribo.application.CommentService;
 import project.maribo.domain.dto.CommentCreateRequest;
+import project.maribo.domain.dto.CommentUpdateRequest;
 
 @RestController
 @RequiredArgsConstructor
@@ -17,5 +18,12 @@ public class CommentController {
             @PathVariable Long postId,
             @RequestBody CommentCreateRequest commentCreateRequest) {
         commentService.createComment(postId, commentCreateRequest);
+    }
+
+    @PatchMapping("/{commentId}")
+    public void updateComment(
+            @PathVariable Long commentId,
+            @RequestBody CommentUpdateRequest commentUpdateRequest) {
+        commentService.updateComment(commentId, commentUpdateRequest);
     }
 }

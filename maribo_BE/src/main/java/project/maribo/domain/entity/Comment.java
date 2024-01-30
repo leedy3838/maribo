@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import project.maribo.domain.dto.CommentCreateRequest;
+import project.maribo.domain.dto.CommentUpdateRequest;
 import project.maribo.domain.dto.PostCreateRequest;
 import project.maribo.domain.entity.type.Category;
 
@@ -51,5 +52,9 @@ public class Comment {
                 .post(post)
                 .content(commentCreateRequest.getContent())
                 .build();
+    }
+
+    public void updateComment(CommentUpdateRequest commentUpdateRequest) {
+        this.content = commentUpdateRequest.getContent();
     }
 }
