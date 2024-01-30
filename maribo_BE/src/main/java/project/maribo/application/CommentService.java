@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project.maribo.domain.dto.CommentCreateRequest;
+import project.maribo.domain.dto.CommentDeleteRequest;
 import project.maribo.domain.dto.CommentUpdateRequest;
 import project.maribo.domain.dto.PostCreateRequest;
 import project.maribo.domain.entity.Comment;
@@ -41,18 +42,25 @@ public class CommentService {
 
         Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(RuntimeException::new);
+        Long userId = commentUpdateRequest.getUserId();
 
-        validateUser(commentUpdateRequest, comment);
+        validateUser(userId, comment);
         comment.updateComment(commentUpdateRequest);
     }
 
     @Transactional
-    public void deleteComment(Long commentId) {
+    public void deleteComment(Long commentId, CommentDeleteRequest commentDeleteRequest) {
+        Comment comment = commentRepository.findById(commentId)
+                        .orElseThrow(RuntimeException::new);
+        Long userId = commentDeleteRequest.getUserId();
+
+        validateUser(userId, comment);
+
         commentRepository.deleteById(commentId);
     }
 
-    private static void validateUser(CommentUpdateRequest commentUpdateRequest, Comment comment) {
-        if (!commentUpdateRequest.getUserId().equals(comment.getUser().getUserId())) {
+    private static void validateUser(Long userId, Comment comment) {
+        if (!userId.equals(comment.getUser().getUserId())) {
             throw new RuntimeException();
         }
     }

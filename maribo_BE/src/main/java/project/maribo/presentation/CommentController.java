@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import project.maribo.application.CommentService;
 import project.maribo.domain.dto.CommentCreateRequest;
+import project.maribo.domain.dto.CommentDeleteRequest;
 import project.maribo.domain.dto.CommentUpdateRequest;
 
 @RestController
@@ -28,7 +29,9 @@ public class CommentController {
     }
 
     @DeleteMapping("{commentId}")
-    public void deleteComment(@PathVariable Long commentId) {
-        commentService.deleteComment(commentId);
+    public void deleteComment(
+            @PathVariable Long commentId,
+            @RequestBody CommentDeleteRequest commentDeleteRequest) {
+        commentService.deleteComment(commentId, commentDeleteRequest);
     }
 }
