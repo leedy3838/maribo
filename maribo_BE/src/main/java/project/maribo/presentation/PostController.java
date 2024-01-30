@@ -6,10 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import project.maribo.application.PostService;
-import project.maribo.domain.dto.PostCreateRequest;
-import project.maribo.domain.dto.PostGetResponse;
-import project.maribo.domain.dto.PostResponse;
-import project.maribo.domain.dto.PostUpdateRequest;
+import project.maribo.domain.dto.*;
 import project.maribo.domain.entity.Post;
 import project.maribo.repository.PostRepository;
 
@@ -33,8 +30,10 @@ public class PostController {
     }
 
     @DeleteMapping("/{postId}")
-    public void deletePost(@PathVariable Long postId) {
-        postService.deletePost(postId);
+    public void deletePost(
+            @PathVariable Long postId,
+            @RequestBody PostDeleteRequest postDeleteRequest) {
+        postService.deletePost(postId,postDeleteRequest);
     }
 
     @GetMapping("/{postId}")

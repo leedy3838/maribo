@@ -4,10 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import project.maribo.domain.dto.PostCreateRequest;
-import project.maribo.domain.dto.PostGetResponse;
-import project.maribo.domain.dto.PostResponse;
-import project.maribo.domain.dto.PostUpdateRequest;
+import project.maribo.domain.dto.*;
 import project.maribo.domain.entity.Post;
 import project.maribo.domain.entity.User;
 import project.maribo.domain.entity.type.Category;
@@ -41,15 +38,21 @@ public class PostService {
 
         Post post = postRepository.findById(postUpdateRequest.getPostId())
                 .orElseThrow(RuntimeException::new);
+        Long userId = postUpdateRequest.getUserId();
 
-        validateUser(postUpdateRequest, post);
+        validateUser(userId, post);
         log.info("post update 전 : {}", post);
         post.update(postUpdateRequest);
         log.info("post update 후 : {}", post);
     }
 
     @Transactional
-    public void deletePost(Long postId) {
+    public void deletePost(Long postId, PostDeleteRequest postDeleteRequest) {
+        Post post = postRepository.findById(postId)
+                .orElseThrow(RuntimeException::new);
+        Long userId = postDeleteRequest.getUserId();
+
+        validateUser(userId, post);
         postRepository.deleteById(postId);
     }
 
@@ -87,8 +90,8 @@ public class PostService {
                 .build();
     }
 
-    private void validateUser(PostUpdateRequest postUpdateRequest, Post post) {
-        if (!postUpdateRequest.getUserId().equals(post.getUser().getUserId())) {
+    private void validateUser(Long userId, Post post) {
+        if (!userId.equals(post.getUser().getUserId())) {
             throw new RuntimeException();
         }
     }
