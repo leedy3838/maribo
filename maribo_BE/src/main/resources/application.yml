@@ -13,6 +13,11 @@ spring:
         format_sql: true
     show_sql: true
 
+  servlet:
+    multipart:
+      max-file-size: 5MB      #요청 파일 1개의 크기
+      max-request-size: 10MB  #요청 파일 전체의 크기
+
 #s3
 cloud:
   aws:

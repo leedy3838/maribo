@@ -27,6 +27,9 @@ public class Post {
     @Column(name = "like_num")
     private Long likeNum;
 
+    @Column(name = "photo_name")
+    private String photoName;
+
     @Column(name = "photo_url")
     private String photoUrl;
 
@@ -43,10 +46,11 @@ public class Post {
     private User user;
 
     @Builder
-    public Post(String title, String content, Long likeNum, String photoUrl, Category category, User user) {
+    public Post(String title, String content, Long likeNum, String photoName, String photoUrl, Category category, User user) {
         this.title = title;
         this.content = content;
         this.likeNum = likeNum;
+        this.photoName = photoName;
         this.photoUrl = photoUrl;
         this.category = category;
         this.user = user;
@@ -54,5 +58,9 @@ public class Post {
 
     public void setPhotoUrl(String photoUrl) {
         this.photoUrl = photoUrl;
+    }
+
+    public void setPhotoName(String photoName) {
+        this.photoName = photoName;
     }
 }

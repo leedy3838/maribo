@@ -19,13 +19,16 @@ public class PostService {
     private final PostRepository postRepository;
     private final S3Uploader s3Uploader;
 
-    @Transactional(readOnly = false)
+    @Transactional
     public String savePost(MultipartFile image, Post post) {
 
         String objectName = null;
         try {
             objectName = s3Uploader.upload(image, "images");
+            //아래 부분 dto로 전환하면서 고치기
             post.setPhotoUrl(objectName);
+            post.setPhotoName(image.getName());
+
             postRepository.save(post);
         } catch (IOException e) {
             log.info("upload file error");

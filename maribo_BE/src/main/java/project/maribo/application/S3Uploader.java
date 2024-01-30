@@ -32,6 +32,11 @@ public class S3Uploader {
         return upload(uploadFile, dirName);
     }
 
+    public void deleteFile(String fileName, String dirName) {
+        String deleteFileName = dirName + "/" + fileName;
+        amazonS3Client.deleteObject(bucket, deleteFileName);
+    }
+
     private String upload(File uploadFile, String dirName) {
         String fileName = dirName + "/" + uploadFile.getName();
         String uploadImageUrl = putS3(uploadFile, fileName);
