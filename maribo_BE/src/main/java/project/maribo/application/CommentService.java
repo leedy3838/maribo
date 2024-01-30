@@ -46,6 +46,11 @@ public class CommentService {
         comment.updateComment(commentUpdateRequest);
     }
 
+    @Transactional
+    public void deleteComment(Long commentId) {
+        commentRepository.deleteById(commentId);
+    }
+
     private static void validateUser(CommentUpdateRequest commentUpdateRequest, Comment comment) {
         if (!commentUpdateRequest.getUserId().equals(comment.getUser().getUserId())) {
             throw new RuntimeException();
