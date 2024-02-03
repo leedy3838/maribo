@@ -17,7 +17,6 @@ import project.maribo.repository.UserRepository;
 
 @Slf4j
 @Service
-@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class CommentService {
 
@@ -25,7 +24,6 @@ public class CommentService {
     private final UserRepository userRepository;
     private final CommentRepository commentRepository;
 
-    @Transactional
     public void createComment(Long postId, CommentCreateRequest commentCreateRequest) {
 
         User user = userRepository.findById(commentCreateRequest.getUserId())
@@ -37,7 +35,6 @@ public class CommentService {
         commentRepository.save(comment);
     }
 
-    @Transactional
     public void updateComment(Long commentId, CommentUpdateRequest commentUpdateRequest) {
 
         Comment comment = commentRepository.findById(commentId)
@@ -48,7 +45,6 @@ public class CommentService {
         comment.updateComment(commentUpdateRequest);
     }
 
-    @Transactional
     public void deleteComment(Long commentId, CommentDeleteRequest commentDeleteRequest) {
         Comment comment = commentRepository.findById(commentId)
                         .orElseThrow(RuntimeException::new);
