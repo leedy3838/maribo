@@ -3,11 +3,9 @@ package project.maribo.application;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import project.maribo.domain.dto.CommentCreateRequest;
+import project.maribo.domain.dto.CommentRequest;
 import project.maribo.domain.dto.CommentDeleteRequest;
-import project.maribo.domain.dto.CommentUpdateRequest;
-import project.maribo.domain.dto.PostCreateRequest;
+import project.maribo.domain.dto.CommentRequest;
 import project.maribo.domain.entity.Comment;
 import project.maribo.domain.entity.Post;
 import project.maribo.domain.entity.User;
@@ -24,25 +22,25 @@ public class CommentService {
     private final UserRepository userRepository;
     private final CommentRepository commentRepository;
 
-    public void createComment(Long postId, CommentCreateRequest commentCreateRequest) {
+    public void createComment(Long postId, CommentRequest commentRequest) {
 
-        User user = userRepository.findById(commentCreateRequest.getUserId())
+        User user = userRepository.findById(commentRequest.getUserId())
                 .orElseThrow(RuntimeException::new);
         Post post = postRepository.findById(postId)
                 .orElseThrow(RuntimeException::new);
 
-        Comment comment = Comment.of(commentCreateRequest, user, post);
+        Comment comment = Comment.of(commentRequest, user, post);
         commentRepository.save(comment);
     }
 
-    public void updateComment(Long commentId, CommentUpdateRequest commentUpdateRequest) {
+    public void updateComment(Long commentId, CommentRequest commentRequest) {
 
         Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(RuntimeException::new);
-        Long userId = commentUpdateRequest.getUserId();
+        Long userId = commentRequest.getUserId();
 
         validateUser(userId, comment);
-        comment.updateComment(commentUpdateRequest);
+        comment.updateComment(commentRequest);
     }
 
     public void deleteComment(Long commentId, CommentDeleteRequest commentDeleteRequest) {
