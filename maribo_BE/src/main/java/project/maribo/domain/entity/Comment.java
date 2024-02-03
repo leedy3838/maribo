@@ -52,7 +52,7 @@ public class Comment {
                 .build();
     }
 
-    public void updateComment(CommentRequest CommentRequest) {
-        this.content = CommentRequest.getContent();
+    public void updateComment(String content) {
+        this.content = content;
     }
 }

@@ -40,7 +40,7 @@ public class CommentService {
         Long userId = commentRequest.getUserId();
 
         validateUser(userId, comment);
-        comment.updateComment(commentRequest);
+        comment.updateComment(commentRequest.getContent());
     }
 
     public void deleteComment(Long commentId, CommentDeleteRequest commentDeleteRequest) {

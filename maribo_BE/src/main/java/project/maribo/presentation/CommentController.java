@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.*;
 import project.maribo.application.CommentService;
 import project.maribo.domain.dto.CommentRequest;
 import project.maribo.domain.dto.CommentDeleteRequest;
-import project.maribo.domain.dto.CommentRequest;
 
 @RestController
 @RequiredArgsConstructor
