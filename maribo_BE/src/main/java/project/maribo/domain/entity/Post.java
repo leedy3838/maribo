@@ -10,8 +10,11 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import project.maribo.domain.dto.PostCreateRequest;
 import project.maribo.domain.dto.PostUpdateRequest;
 import project.maribo.domain.entity.type.Category;
+import project.maribo.repository.CommentRepository;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
@@ -48,10 +51,12 @@ public class Post {
     @Column(name = "created_date")
     private LocalDate createdDate;
 
-    @OnDelete(action = OnDeleteAction.CASCADE)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
+
+    @OneToMany(mappedBy = "post")
+    private List<Comment> comments = new ArrayList<>();
 
     @Builder
     public Post(String title, String content, Long likeNum, String photoUrl, Category category, User user) {

@@ -5,9 +5,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project.maribo.domain.dto.*;
+import project.maribo.domain.entity.Comment;
 import project.maribo.domain.entity.Post;
 import project.maribo.domain.entity.User;
 import project.maribo.domain.entity.type.Category;
+import project.maribo.repository.CommentRepository;
 import project.maribo.repository.PostRepository;
 import project.maribo.repository.UserRepository;
 
@@ -22,6 +24,7 @@ public class PostService {
 
     private final PostRepository postRepository;
     private final UserRepository userRepository;
+    private final CommentRepository commentRepository;
 
     @Transactional
     public void createPost(PostCreateRequest postCreateRequest) {
@@ -70,7 +73,12 @@ public class PostService {
                 .photoUrl(post.getPhotoUrl())
                 .category(String.valueOf(post.getCategory()))
                 .createdDate(post.getCreatedDate())
+                .comments(post.getComments())
                 .build();
+    }
+
+    public List<Comment> getCommentByPost(Long postId) {
+
     }
 
     public List<PostResponse> getAllPosts() {
