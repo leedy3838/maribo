@@ -13,6 +13,8 @@ import project.maribo.repository.CommentRepository;
 import project.maribo.repository.PostRepository;
 import project.maribo.repository.UserRepository;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -63,6 +65,8 @@ public class PostService {
         Post post = postRepository.findPostByPostId(postId)
                 .orElseThrow(RuntimeException::new);
 
+        List<Comment> comments = commentRepository.findCommentsByPost(post);
+
         return PostGetResponse
                 .builder()
                 .postId(post.getPostId())
@@ -73,12 +77,20 @@ public class PostService {
                 .photoUrl(post.getPhotoUrl())
                 .category(String.valueOf(post.getCategory()))
                 .createdDate(post.getCreatedDate())
-                .comments(post.getComments())
+                .comments(mapCommentsToResponse(comments))
                 .build();
     }
 
-    public List<Comment> getCommentByPost(Long postId) {
-
+    private static List<CommentRequest> mapCommentsToResponse(List<Comment> comments) {
+        return comments
+                .stream()
+                .map(comment -> CommentRequest.builder()
+                        .userId(comment.getUser().getUserId())
+                        .postId(comment.getPost().getPostId())
+                        .commentId(comment.getCommentId())
+                        .content(comment.getContent())
+                        .build())
+                .collect(Collectors.toList());
     }
 
     public List<PostResponse> getAllPosts() {

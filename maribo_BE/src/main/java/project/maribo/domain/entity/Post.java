@@ -55,7 +55,7 @@ public class Post {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "post")
+    @OneToMany
     private List<Comment> comments = new ArrayList<>();
 
     @Builder

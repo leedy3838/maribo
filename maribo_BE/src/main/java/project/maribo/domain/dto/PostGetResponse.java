@@ -18,5 +18,5 @@ public class PostGetResponse {
     private String photoUrl;
     private String category;
     private LocalDate createdDate;
-    private List<Comment> comments;
+    private List<CommentRequest> comments;
 }
