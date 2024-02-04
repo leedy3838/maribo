@@ -77,11 +77,11 @@ public class PostService {
                 .photoUrl(post.getPhotoUrl())
                 .category(String.valueOf(post.getCategory()))
                 .createdDate(post.getCreatedDate())
-                .comments(mapCommentsToResponse(comments))
+                .comments(commentsToResponse(comments))
                 .build();
     }
 
-    private static List<CommentRequest> mapCommentsToResponse(List<Comment> comments) {
+    private static List<CommentRequest> commentsToResponse(List<Comment> comments) {
         return comments
                 .stream()
                 .map(comment -> CommentRequest.builder()
