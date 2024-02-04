@@ -33,7 +33,7 @@ public class PostController {
     public void deletePost(
             @PathVariable Long postId,
             @RequestBody PostDeleteRequest postDeleteRequest) {
-        postService.deletePost(postId,postDeleteRequest);
+        postService.deletePost(postId, postDeleteRequest);
     }
 
     @GetMapping("/{postId}")
