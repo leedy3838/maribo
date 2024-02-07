@@ -65,8 +65,6 @@ public class PostService {
         Post post = postRepository.findPostByPostId(postId)
                 .orElseThrow(RuntimeException::new);
 
-        List<Comment> comments = commentRepository.findCommentsByPost(post);
-
         return PostGetResponse
                 .builder()
                 .postId(post.getPostId())
@@ -77,7 +75,7 @@ public class PostService {
                 .photoUrl(post.getPhotoUrl())
                 .category(String.valueOf(post.getCategory()))
                 .createdDate(post.getCreatedDate())
-                .comments(commentsToResponse(comments))
+                .comments(commentsToResponse(post.getComments()))
                 .build();
     }
 
