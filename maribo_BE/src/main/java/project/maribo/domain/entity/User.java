@@ -6,6 +6,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import project.maribo.domain.dto.UserRequest;
 
 @Entity
 @Table(name = "users")
@@ -25,5 +26,12 @@ public class User {
     @Builder
     public User(String email) {
         this.email = email;
+    }
+
+    public static User of(UserRequest userRequest) {
+        return User
+                .builder()
+                .email(userRequest.getEmail())
+                .build();
     }
 }
