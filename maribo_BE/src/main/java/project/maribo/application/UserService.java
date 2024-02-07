@@ -16,10 +16,7 @@ public class UserService {
     private final UserRepository userRepository;
 
     public void createUser(UserRequest userRequest) {
-
-        String email = userRequest.getEmail();
-        User user = new User(email);
-
+        User user = User.of(userRequest);
         userRepository.save(user);
     }
 }
