@@ -20,20 +20,23 @@ public class PostController {
     private final PostService postService;
 
     @PostMapping("/post")
-    public void createPost(@RequestBody PostCreateRequest postCreateRequest) {
+    public ResponseEntity<Void> createPost(@RequestBody PostCreateRequest postCreateRequest) {
         postService.createPost(postCreateRequest);
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping("/modification")
-    public void updatePost(@RequestBody PostUpdateRequest postUpdateRequest) {
+    public ResponseEntity<Void> updatePost(@RequestBody PostUpdateRequest postUpdateRequest) {
         postService.updatePost(postUpdateRequest);
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{postId}")
-    public void deletePost(
+    public ResponseEntity<Void> deletePost(
             @PathVariable Long postId,
             @RequestBody PostDeleteRequest postDeleteRequest) {
         postService.deletePost(postId, postDeleteRequest);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{postId}")
