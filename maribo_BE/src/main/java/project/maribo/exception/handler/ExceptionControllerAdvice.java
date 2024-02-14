@@ -4,7 +4,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import project.maribo.exception.MemberNotFoundException;
+import project.maribo.exception.CommentNotFoundException;
+import project.maribo.exception.UserNotFoundException;
 import project.maribo.exception.PostNotFoundException;
 import project.maribo.exception.UserNotMatchException;
 
@@ -24,8 +25,14 @@ public class ExceptionControllerAdvice {
     }
 
     @ExceptionHandler
-    public ResponseEntity<String> memberNotFoundException(MemberNotFoundException e) {
+    public ResponseEntity<String> memberNotFoundException(UserNotFoundException e) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body("해당 회원이 존재하지 않습니다.");
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<String> commentNotFoundException(CommentNotFoundException e) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body("해당 댓글이 존재하지 않습니다.");
     }
 }
