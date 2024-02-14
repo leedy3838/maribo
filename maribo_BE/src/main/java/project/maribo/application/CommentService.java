@@ -9,6 +9,7 @@ import project.maribo.domain.dto.CommentRequest;
 import project.maribo.domain.entity.Comment;
 import project.maribo.domain.entity.Post;
 import project.maribo.domain.entity.User;
+import project.maribo.exception.UserNotMatchException;
 import project.maribo.repository.CommentRepository;
 import project.maribo.repository.PostRepository;
 import project.maribo.repository.UserRepository;
@@ -55,7 +56,7 @@ public class CommentService {
 
     private static void validateUser(Long userId, Comment comment) {
         if (!userId.equals(comment.getUser().getUserId())) {
-            throw new RuntimeException();
+            throw new UserNotMatchException();
         }
     }
 }
