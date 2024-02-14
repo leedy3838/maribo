@@ -113,7 +113,7 @@ public class PostService {
 
     private void validateUser(Long userId, Post post) {
         if (!userId.equals(post.getUser().getUserId())) {
-            throw new RuntimeException();
+            throw new UserNotMatchException();
         }
     }
 }
