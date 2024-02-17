@@ -1,7 +1,6 @@
 package project.maribo.presentation;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 import project.maribo.application.UserService;
 import project.maribo.domain.dto.UserRequest;
 
-@Api(tags = "User")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("v1/maribo/user")
@@ -19,7 +17,7 @@ public class UserController {
 
     private final UserService userService;
 
-    @ApiOperation(value = "유저 등록", notes = "유저 등록 API")
+    @Operation(summary = "유저 등록", description = "유저 등록 API", tags = "User")
     @PostMapping
     public ResponseEntity<Void> createUser(@RequestBody UserRequest userRequest) {
         userService.createUser(userRequest);
