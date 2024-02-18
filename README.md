@@ -1,5 +1,10 @@
 # maribo
 게시판 토이 프로젝트
+
+# 🖥️ Introduce
+maribo(마리보)는 "게시판 서비스"로<br>
+<br>
+Java와 SpringBoot를 사용하여 게시판을 제작하고, 여러 인프라를 경험해보고자 시작하게 되었습니다! 😉
   
 ## 🧚‍♀️ Member 
 | 이동영<br/>([@leedy3838](https://github.com/leedy3838)) | 이현지<br/>([@Amepistheo](https://github.com/Amepistheo)) |
@@ -34,3 +39,8 @@ com.project.maribo
 │   └── controller
 └── repository
 ```
+### ERD
+![image](https://github.com/leedy3838/maribo/assets/110108243/9b23d845-258b-4586-bdff-6a556c4f6418)
+### Infra Structure
+![image](https://github.com/leedy3838/maribo/assets/110108243/98279438-38f5-4047-a2b5-2af823bf44d2)
+
