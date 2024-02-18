@@ -9,6 +9,9 @@ import project.maribo.domain.dto.CommentRequest;
 import project.maribo.domain.entity.Comment;
 import project.maribo.domain.entity.Post;
 import project.maribo.domain.entity.User;
+import project.maribo.exception.CommentNotFoundException;
+import project.maribo.exception.PostNotFoundException;
+import project.maribo.exception.UserNotMatchException;
 import project.maribo.repository.CommentRepository;
 import project.maribo.repository.PostRepository;
 import project.maribo.repository.UserRepository;
@@ -25,9 +28,9 @@ public class CommentService {
     public void createComment(Long postId, CommentRequest commentRequest) {
 
         User user = userRepository.findById(commentRequest.getUserId())
-                .orElseThrow(RuntimeException::new);
+                .orElseThrow(UserNotMatchException::new);
         Post post = postRepository.findById(postId)
-                .orElseThrow(RuntimeException::new);
+                .orElseThrow(PostNotFoundException::new);
 
         Comment comment = Comment.of(commentRequest, user, post);
         commentRepository.save(comment);
@@ -36,7 +39,7 @@ public class CommentService {
     public void updateComment(Long commentId, CommentRequest commentRequest) {
 
         Comment comment = commentRepository.findById(commentId)
-                .orElseThrow(RuntimeException::new);
+                .orElseThrow(CommentNotFoundException::new);
         Long userId = commentRequest.getUserId();
 
         validateUser(userId, comment);
@@ -45,7 +48,7 @@ public class CommentService {
 
     public void deleteComment(Long commentId, CommentDeleteRequest commentDeleteRequest) {
         Comment comment = commentRepository.findById(commentId)
-                        .orElseThrow(RuntimeException::new);
+                        .orElseThrow(CommentNotFoundException::new);
         Long userId = commentDeleteRequest.getUserId();
 
         validateUser(userId, comment);
@@ -55,7 +58,7 @@ public class CommentService {
 
     private static void validateUser(Long userId, Comment comment) {
         if (!userId.equals(comment.getUser().getUserId())) {
-            throw new RuntimeException();
+            throw new UserNotMatchException();
         }
     }
 }
