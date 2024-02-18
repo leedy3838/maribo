@@ -40,7 +40,8 @@ com.project.maribo
 └── repository
 ```
 ### ERD
-![image](https://github.com/leedy3838/maribo/assets/110108243/9b23d845-258b-4586-bdff-6a556c4f6418)
+![image](https://github.com/leedy3838/maribo/assets/43364585/4e09e29f-9037-4d42-b56d-c187d09fa045)
+
 ### Infra Structure
 ![image](https://github.com/leedy3838/maribo/assets/110108243/98279438-38f5-4047-a2b5-2af823bf44d2)
 
